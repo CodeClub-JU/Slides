@@ -3,43 +3,44 @@
 #include <string>
 #include <chrono> // for timing
 
-using namespace std;
+#define vi std::vector<int>
 
+// Compile & run - 
 // g++ -std=c++14 sorting.cpp -o sorting && ./sorting
 
-void display(string, vector<int>);
+void display(std::string, vi);
 // Simple, In-place - Insertion, Selection sort
-vector<int> insertion_sort(vector<int>);
-vector<int> selection_sort(vector<int>);
+vi insertion_sort(vi);
+vi selection_sort(vi);
 // Bubble sort
-vector<int> bubble_sort(vector<int>);
+vi bubble_sort(vi);
 // Efficient - Merge, Heap, Quick sort
-vector<int> merge_sort(vector<int>);
-vector<int> merge(vector<int>, vector<int>);
-vector<int> quick_sort(vector<int>);
-vector<int> heap_sort(vector<int>);
+vi merge_sort(vi);
+vi merge(vi, vi);
+vi quick_sort(vi);
+vi heap_sort(vi);
 
 
 
 int main () {
-	vector<int> arr = {31, 22, 45, 61, 12, 19, 54, 27};
+	vi arr = {31, 22, 45, 61, 12, 19, 54, 27};
 
-	vector<int> ins_arr = insertion_sort(arr);
+	vi ins_arr = insertion_sort(arr);
 	display("Insertion Sort", ins_arr);
 
-	vector<int> sel_arr = selection_sort(arr);
+	vi sel_arr = selection_sort(arr);
 	display("Selection Sort", sel_arr);
 
-	vector<int> bub_arr = bubble_sort(arr);
+	vi bub_arr = bubble_sort(arr);
 	display("Bubble    Sort", bub_arr);
 
-	vector<int> mer_arr = merge_sort(arr);
+	vi mer_arr = merge_sort(arr);
 	display("Merge     Sort", mer_arr);
 
-	vector<int> qui_arr = quick_sort(arr);
+	vi qui_arr = quick_sort(arr);
 	display("Quick     Sort", qui_arr);
 
-	vector<int> hea_arr = quick_sort(arr);
+	vi hea_arr = quick_sort(arr);
 	display("Heap      Sort", hea_arr);
 
 	return 0;
@@ -47,15 +48,15 @@ int main () {
 
 
 
-void display(string msg, vector<int> arr) {
-	cout << "[" << msg << "]:\t";
+void display(std::string msg, vi arr) {
+	std::cout << "[" << msg << "]:\t";
 	for (auto x: arr) {
-		cout << x << (x != arr[arr.size()-1] ? ", " : "\n");
+		std::cout << x << (x != arr[arr.size()-1] ? ", " : "\n");
 	}
 }
 
 
-vector<int> insertion_sort(vector<int> arr) {
+vi insertion_sort(vi arr) {
 	int n = arr.size();
 	for ( int i=1; i<n; i++ ) {
 		// insert arr[i] to sorted array arr[0...i]
@@ -76,7 +77,7 @@ vector<int> insertion_sort(vector<int> arr) {
 	return arr;
 }
 
-vector<int> selection_sort(vector<int> arr) {
+vi selection_sort(vi arr) {
 	int n = arr.size();
 	for (int i=0; i < n-1; i++) {
 		// select smallest element from arr[i...n-1]
@@ -100,13 +101,13 @@ vector<int> selection_sort(vector<int> arr) {
 	return arr;
 }
 
-vector<int> bubble_sort(vector<int> arr) {
+vi bubble_sort(vi arr) {
 	int n = arr.size();
 	for (int i=0; i<n; i++) {
 		for (int j=i+1; j<n; j++) {
 			// pairwise comparison for all elements
 			if (arr[i] > arr[j]) {
-				swap(arr[i], arr[j]);
+				std::swap(arr[i], arr[j]);
 			}
 		}
 	}
@@ -114,9 +115,9 @@ vector<int> bubble_sort(vector<int> arr) {
 	return arr;
 }
 
-vector<int> merge(vector<int> l, vector<int> r) {
+vi merge(vi l, vi r) {
 	// merge two sorted arrays
-	vector<int> res;
+	vi res;
 
 	// display("L", l);
 	// display("R", r);
@@ -147,7 +148,7 @@ vector<int> merge(vector<int> l, vector<int> r) {
 	return res;
 }
 
-vector<int> merge_sort(vector<int> arr) {
+vi merge_sort(vi arr) {
 	int n = arr.size();
 	if (n <= 1) {
 		// arr of zero or one elements is sorted, by definition
@@ -155,7 +156,7 @@ vector<int> merge_sort(vector<int> arr) {
 	}
 	else {
 		// break into two parts & recursively sort
-		vector<int> l, r;
+		vi l, r;
 		for(int i=0; i<n; i++) {
 			if (i < int(n/2)) {
 				l.push_back(arr[i]);
@@ -173,7 +174,7 @@ vector<int> merge_sort(vector<int> arr) {
 }
 
 
-vector<int> quick_sort(vector<int> arr) {
+vi quick_sort(vi arr) {
 	int n = arr.size();
 	
 	if (n <= 1) {
@@ -185,7 +186,7 @@ vector<int> quick_sort(vector<int> arr) {
 	int pivot = arr[rand()%n];
 
 	// low, high and final result
-	vector<int> l, h, res;
+	vi l, h, res;
 
 	for (int i=0; i<n; i++) {
 		// partition arr using pivot
@@ -214,17 +215,17 @@ vector<int> quick_sort(vector<int> arr) {
 }
 
 
-vector<int> heap_sort(vector<int> arr) {
+vi heap_sort(vi arr) {
 	int n = arr.size();
 
 	// build max heap
-	make_heap(arr.begin(), arr.end());
+	std::make_heap(arr.begin(), arr.end());
 
 	for (int i=0; i<n-1; i++) {
 		// move max element to back
-		pop_heap(arr.begin(), arr.end() - i);
+		std::pop_heap(arr.begin(), arr.end() - i);
 		// heapify remaining
-		make_heap(arr.begin(), arr.end() - i - 1);
+		std::make_heap(arr.begin(), arr.end() - i - 1);
 	}
 
 	return arr;
