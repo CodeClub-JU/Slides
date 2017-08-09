@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <chrono> // for timing
 
 using namespace std;
 
@@ -16,6 +17,7 @@ vector<int> bubble_sort(vector<int>);
 vector<int> merge_sort(vector<int>);
 vector<int> merge(vector<int>, vector<int>);
 vector<int> quick_sort(vector<int>);
+vector<int> heap_sort(vector<int>);
 
 
 
@@ -36,6 +38,9 @@ int main () {
 
 	vector<int> qui_arr = quick_sort(arr);
 	display("Quick     Sort", qui_arr);
+
+	vector<int> hea_arr = quick_sort(arr);
+	display("Heap      Sort", hea_arr);
 
 	return 0;
 }
@@ -206,6 +211,23 @@ vector<int> quick_sort(vector<int> arr) {
 	res.insert(res.end(), h.begin(), h.end());
 
 	return res;
+}
+
+
+vector<int> heap_sort(vector<int> arr) {
+	int n = arr.size();
+
+	// build max heap
+	make_heap(arr.begin(), arr.end());
+
+	for (int i=0; i<n-1; i++) {
+		// move max element to back
+		pop_heap(arr.begin(), arr.end() - i);
+		// heapify remaining
+		make_heap(arr.begin(), arr.end() - i - 1);
+	}
+
+	return arr;
 }
 
 
