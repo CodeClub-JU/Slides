@@ -43,6 +43,12 @@ int main () {
 	vi hea_arr = quick_sort(arr);
 	display("Heap      Sort", hea_arr);
 
+	vi stl_arr = arr;
+	// this sort internally uses a combination of quick sort initially 
+	// and then moves to heap sort below a certain size threshold
+	std::sort(stl_arr.begin(), stl_arr.end());
+	display("STL       Sort", stl_arr);
+
 	return 0;
 }
 
